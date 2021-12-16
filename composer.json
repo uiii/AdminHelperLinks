@@ -1,0 +1,9 @@
+{
+    "name": "uiii/admin-helper-links",
+    "type": "pw-module",
+    "keywords": ["processwire", "module"],
+    "license": "MIT",
+    "require": {
+        "hari/pw-module": "^1.0"
+    }
+}

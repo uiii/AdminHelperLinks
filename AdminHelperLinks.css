@@ -1,0 +1,48 @@
+.AdminHelperLinksLink {
+	position: relative;
+	display: flex;
+	align-items: center;
+	float: right;
+	padding-right: .75em;
+	opacity: .5;
+	color: #354b60;
+}
+
+.AdminHelperLinksLink:hover {
+	text-decoration: none;
+	color: #354b60;
+	opacity: .75;
+}
+
+.AdminHelperLinksLink .keep-height {
+	width: 0px;
+	overflow: hidden;
+}
+
+.AdminHelperLinksLink i {
+	font-size: 12px;
+}
+
+.AdminHelperLinksInit .toggle-icon {
+	display: flex;
+	flex-direction: row-reverse;
+	width: auto;
+}
+
+.AdminHelperLinksInit .InputfieldNameTip {
+	padding-right: .25em;
+}
+
+.InputfieldImage .AdminHelperLinksInit .InputfieldNameTip {
+	padding-right: 1.5em;
+}
+
+.InputfieldStateCollapsed .AdminHelperLinksLink i {
+	position: relative;
+	top: 1px;
+}
+
+.InputfieldStateCollapsed .AdminHelperLinksInit .InputfieldNameTip {
+	position: relative;
+	top: 2px;
+}
