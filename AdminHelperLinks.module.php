@@ -12,6 +12,9 @@ class AdminHelperLinks extends WireData implements Module {
 			'permission' => 'admin-helper-links',
 			'permissions' => array(
 				'admin-helper-links' => 'Enable Admin Helper Links module'
+			),
+			'requires' => array(
+ 				'ProcessWire>=3.0'
 			)
 		);
 	}
