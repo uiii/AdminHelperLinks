@@ -6,4 +6,4 @@ Module for ProcessWire 3.x adding helper links (field edit, ...) when editing pa
 
 Inspired by https://github.com/somatonic/HelperFieldLinks, but has different display style and includes links using JS instead of PHP.
 
-![preview](admin-helper-links.png)
+![preview](preview.gif)
