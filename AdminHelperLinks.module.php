@@ -20,6 +20,13 @@ class AdminHelperLinks extends WireData implements Module {
 	}
 
 	public function init() {
+		$this->modules->JqueryUI->use('modal');
 		$this->modules->loadModuleFileAssets($this);
+
+		$this->config->js($this->className, [
+			'fieldIds' => array_reduce(array_values($this->fields->getAll()->getArray()), fn($fields, $f) => $fields + [$f->name => $f->id], []),
+			'templateIds' => array_reduce(array_values($this->templates->getAll()->getArray()), fn($templates, $t) => $templates + [$t->name => $t->id], []),
+			'templateFieldgroupIds' => array_reduce(array_values($this->templates->getAll()->getArray()), fn($templates, $t) => $templates + [$t->name => $t->fieldgroup->id], [])
+		]);
 	}
 }

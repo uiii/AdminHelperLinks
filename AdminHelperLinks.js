@@ -1,4 +1,17 @@
-function init ($inputfield, fields) {
+function init ($inputfield) {
+	var $pageEditProcess = $('#ProcessPageEdit');
+
+	if (!$pageEditProcess.length) {
+		return;
+	}
+
+	var templateClass = $pageEditProcess.attr('class').split(/\s+/).find(c => c.startsWith('template_'));
+	var templateName = templateClass && templateClass.replace(/^template_/, '');
+
+	if (!templateName) {
+		return;
+	}
+
 	$inputfield.find('.InputfieldHeader:not(.AdminHelperLinksInit) > i.toggle-icon').each(function() {
 		$(this).off('hover');
 
@@ -13,20 +26,47 @@ function init ($inputfield, fields) {
 		var fieldName = forId
 			.replace(/^Inputfield_|wrap_Inputfield_|wrap_/, '')
 			.replace(/_repeater.*$/, '');
-		var field = fields.find(f => f.name === fieldName);
+		var fieldId = ProcessWire.config.AdminHelperLinks.fieldIds[fieldName];
 
-		if(field) {
-			var $link = $("<a class='AdminHelperLinksLink'>");
-			$link.attr('title', 'Edit field: ' + fieldName);
-			$link.attr('href', '/admin/setup/field/edit?id=' + field.id);
-			$link.append("<div class='keep-height'>&nbsp;</div>");
-			$link.append("<i class='fa fa-cog'></i></span>");
+		$links = $("<div class='AdminHelperLinks' title=''>");
+		$(this).append($links);
 
-			$link.click(function (event) {
-				event.stopPropagation();
-			})
+		$hoverContent = $("<div class='hover-content'>");
+		$links.append($hoverContent);
 
-			$(this).append($link);
+		$backgroundFade = $("<span class='background-fade'>&nbsp;</span>");
+
+		$links.on('hover', function () {
+			$('.background-fade').css("background", "linear-gradient(to left, " + $header.css("background-color") + ", transparent)");
+		})
+
+		$hoverContent.append($backgroundFade);
+		$hoverContent.append("<span class='field-name'>" + fieldName + "</span>");
+
+		if(fieldId) {
+			var $editLink = $("<a class='AdminHelperLinksLink edit-field pw-modal pw-modal-medium' data-buttons='#Inputfield_submit_save_field' data-autoclose>");
+			$editLink.attr('href', ProcessWire.config.urls.admin + 'setup/field/edit?id=' + fieldId);
+			$editLink.append("<div class='keep-height'>&nbsp;</div>");
+			$editLink.append("<i class='fa fa-cube'></i>");
+
+			// necessary for setting a title to link but prevent modal window to use it
+			var $linkTitleWrapper = $("<span title='Edit field'></span>");
+			$linkTitleWrapper.append($editLink);
+
+			$links.append($linkTitleWrapper);
+
+			var templateFieldgroupId = ProcessWire.config.AdminHelperLinks.templateFieldgroupIds[templateName];
+			if (templateFieldgroupId) {
+				var $editInContextLink = $("<a class='AdminHelperLinksLink edit-field-in-context pw-modal pw-modal-medium' data-buttons='#Inputfield_submit_save_field' data-autoclose>");
+				$editInContextLink.attr('href', ProcessWire.config.urls.admin + 'setup/field/edit?id=' + fieldId + '&fieldgroup_id=' + templateFieldgroupId + '&process_template=1');
+				$editInContextLink.append("<i class='fa fa-cubes'></i>");
+
+				// necessary for setting a title to link but prevent modal window to use it
+				var $linkTitleWrapper = $("<span title='Edit field in template context'></span>");
+				$linkTitleWrapper.append($editInContextLink);
+
+				$hoverContent.append($linkTitleWrapper);
+			}
 
 			$header.addClass('AdminHelperLinksInit');
 		}
@@ -35,17 +75,10 @@ function init ($inputfield, fields) {
 
 jQuery(document).ready(function($) {
 	console.log("HFL");
-	$.ajax('/admin/setup/field', {
-		headers: {
-			'X-Requested-With': 'XMLHttpRequest'
-		}
-	}).then((fields) => {
-		console.log(fields);
 
-		init($('.Inputfield'), fields);
+	init($('.Inputfield'));
 
-		$(document).on('reloaded', '.Inputfield', function() {
-			init($(this), fields);
-		});
+	$(document).on('reloaded', '.Inputfield', function() {
+		init($(this));
 	});
 });

@@ -1,9 +1,42 @@
+.AdminHelperLinks,
+.AdminHelperLinks .hover-content {
+	position: relative;
+	display: flex;
+	align-items: center;
+	background-color: inherit;
+}
+
+.AdminHelperLinks .hover-content {
+	position: absolute;
+	right: 100%;
+	padding-left: 1em;
+	z-index: 100;
+}
+
+.AdminHelperLinks:not(:hover) .hover-content {
+	display: none;
+}
+
+.AdminHelperLinks .hover-content .background-fade {
+	position: absolute;
+	right: 100%;
+	width: 30px;
+}
+
+.AdminHelperLinks .field-name {
+	position: relative;
+	top: -1px;
+	padding-right: .5em;
+	color: #98a3ae;
+	cursor: default;
+}
+
 .AdminHelperLinksLink {
 	position: relative;
 	display: flex;
 	align-items: center;
 	float: right;
-	padding-right: .75em;
+	padding-right: .5em;
 	opacity: .5;
 	color: #354b60;
 }
@@ -12,6 +45,10 @@
 	text-decoration: none;
 	color: #354b60;
 	opacity: .75;
+}
+
+.AdminHelperLinksLink.edit-field {
+	padding-right: .75em;
 }
 
 .AdminHelperLinksLink .keep-height {
@@ -23,26 +60,26 @@
 	font-size: 12px;
 }
 
-.AdminHelperLinksInit .toggle-icon {
-	display: flex;
-	flex-direction: row-reverse;
-	width: auto;
-}
-
-.AdminHelperLinksInit .InputfieldNameTip {
-	padding-right: .25em;
-}
-
-.InputfieldImage .AdminHelperLinksInit .InputfieldNameTip {
-	padding-right: 1.5em;
-}
-
-.InputfieldStateCollapsed .AdminHelperLinksLink i {
+.InputfieldStateCollapsed .AdminHelperLinks {
 	position: relative;
 	top: 1px;
 }
 
-.InputfieldStateCollapsed .AdminHelperLinksInit .InputfieldNameTip {
-	position: relative;
-	top: 2px;
+/* overwrite PW styles */
+
+.AdminHelperLinksInit .toggle-icon {
+	display: flex;
+	flex-direction: row-reverse;
+	width: auto;
+	font-family: inherit;
+	background-color: inherit;
+}
+
+.AdminHelperLinksInit .toggle-icon::before {
+	font-family: FontAwesome;
+}
+
+
+.AdminHelperLinksInit .InputfieldNameTip {
+	display: none;
 }
