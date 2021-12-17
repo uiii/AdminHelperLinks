@@ -1,85 +1,137 @@
-.AdminHelperLinks,
-.AdminHelperLinks .hover-content {
+.ahl {
+	margin-right: .5em;
+}
+
+.ahl,
+.ahl__hover-content {
 	position: relative;
 	display: flex;
 	align-items: center;
 	background-color: inherit;
+	background: inherit;
 }
 
-.AdminHelperLinks .hover-content {
+.ahl__hover-content {
 	position: absolute;
 	right: 100%;
-	padding-left: 1em;
 	z-index: 100;
 }
 
-.AdminHelperLinks:not(:hover) .hover-content {
+.ahl:not(:hover) .ahl__hover-content {
 	display: none;
 }
 
-.AdminHelperLinks .hover-content .background-fade {
+.ahl__background-fade {
 	position: absolute;
 	right: 100%;
 	width: 30px;
+	padding-right: .75em;
+	cursor: default;
 }
 
-.AdminHelperLinks .field-name {
+.ahl__field-name {
 	position: relative;
 	top: -1px;
-	padding-right: .5em;
+	padding-left: .25em;
+	padding-right: .25em;
+	font-size: 14px;
 	color: #98a3ae;
 	cursor: default;
 }
 
-.AdminHelperLinksLink {
+.ahl__link {
 	position: relative;
 	display: flex;
 	align-items: center;
 	float: right;
-	padding-right: .5em;
+	padding: 0 !important;
+	margin: 0 .25em;
 	opacity: .5;
 	color: #354b60;
 }
 
-.AdminHelperLinksLink:hover {
+.ahl__link:hover {
 	text-decoration: none;
-	color: #354b60;
 	opacity: .75;
 }
 
-.AdminHelperLinksLink.edit-field {
-	padding-right: .75em;
+.ahl__link,
+.ahl__link:hover,
+.ahl__link:active,
+.ahl__link:visited {
+	color: #354b60 !important;
 }
 
-.AdminHelperLinksLink .keep-height {
+.ahl__keep-height {
 	width: 0px;
 	overflow: hidden;
 }
 
-.AdminHelperLinksLink i {
+.ahl__link i {
 	font-size: 12px;
 }
 
-.InputfieldStateCollapsed .AdminHelperLinks {
+.InputfieldStateCollapsed .ahl {
 	position: relative;
 	top: 1px;
 }
 
+.ahl__template {
+	position: absolute;
+	top: 50%;
+	right: 0;
+	transform: translateY(-50%);
+}
+
+.ahl__template-name {
+	color: #98a3ae;
+}
+
+.ahl__link--template {
+	padding-right: .75em !important;
+	padding-left: .5em !important;
+	height: auto !important;
+	border: none !important;
+}
+
+.ahl__link--template:hover {
+	border: none !important;
+	background-color: transparent !important;
+}
+
+.ahl__template:not(:hover) .ahl__template-name {
+	display: none;
+}
+
+.ahl__template a:hover {
+	opacity: .75;
+}
+
+
 /* overwrite PW styles */
 
-.AdminHelperLinksInit .toggle-icon {
+.ahl--init .toggle-icon {
 	display: flex;
 	flex-direction: row-reverse;
 	width: auto;
 	font-family: inherit;
 	background-color: inherit;
+	background: inherit;
 }
 
-.AdminHelperLinksInit .toggle-icon::before {
+.AdminThemeDefault .ahl--init .toggle-icon {
+	background-color: #fdfdfc;
+}
+
+.AdminThemeDefault .ahl__background-fade {
+	background: linear-gradient(to left, #f7f6f3, transparent) !important;
+}
+
+.ahl--init .toggle-icon::before {
 	font-family: FontAwesome;
 }
 
 
-.AdminHelperLinksInit .InputfieldNameTip {
+.ahl--init .InputfieldNameTip {
 	display: none;
 }

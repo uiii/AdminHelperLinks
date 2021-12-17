@@ -5,8 +5,8 @@ class AdminHelperLinks extends WireData implements Module {
 	public static function getModuleInfo() {
 		return array(
 			'title' => 'Admin Helper Links',
-			'version' => 100,
-			'summary' => 'Adds field edit links to input fields on page edit.',
+			'version' => 110,
+			'summary' => "Adds links on page edit to quickly edit page's fields and template.",
 			'singular' => true,
 			'autoload' => true,
 			'permission' => 'admin-helper-links',
@@ -24,9 +24,9 @@ class AdminHelperLinks extends WireData implements Module {
 		$this->modules->loadModuleFileAssets($this);
 
 		$this->config->js($this->className, [
-			'fieldIds' => array_reduce(array_values($this->fields->getAll()->getArray()), fn($fields, $f) => $fields + [$f->name => $f->id], []),
-			'templateIds' => array_reduce(array_values($this->templates->getAll()->getArray()), fn($templates, $t) => $templates + [$t->name => $t->id], []),
-			'templateFieldgroupIds' => array_reduce(array_values($this->templates->getAll()->getArray()), fn($templates, $t) => $templates + [$t->name => $t->fieldgroup->id], [])
+			'fieldIds' => array_reduce(array_values($this->fields->getAll()->getArray()), function ($fields, $f) { return $fields + [$f->name => $f->id]; }, []),
+			'templateIds' => array_reduce(array_values($this->templates->getAll()->getArray()), function ($templates, $t) { return $templates + [$t->name => $t->id]; }, []),
+			'templateFieldgroupIds' => array_reduce(array_values($this->templates->getAll()->getArray()), function ($templates, $t) { return $templates + [$t->name => $t->fieldgroup->id]; }, [])
 		]);
 	}
 }
