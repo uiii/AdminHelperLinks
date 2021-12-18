@@ -1,6 +1,8 @@
 # AdminHelperLinks
 
 [![Packagist](https://img.shields.io/packagist/v/uiii/admin-helper-links.svg)](https://packagist.org/packages/uiii/admin-helper-links)
+[![](https://img.shields.io/badge/module-2480e6?logo=ProcessWire&logoColor=white)](https://processwire.com/modules/admin-helper-links)
+[![](https://img.shields.io/badge/support-ec2147?logo=ProcessWire&logoColor=white)](https://processwire.com/talk/topic/26537-adminhelperlinks-add-field-edit-links-to-input-fields-on-page-edit)
 
 Module for ProcessWire 3.x - add shortcut links to edit fields and template directly from page edit.
 
