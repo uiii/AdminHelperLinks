@@ -5,8 +5,8 @@ class AdminHelperLinks extends WireData implements Module {
 	public static function getModuleInfo() {
 		return array(
 			'title' => 'Admin Helper Links',
-			'version' => 110,
-			'summary' => "Adds links on page edit to quickly edit page's fields and template.",
+			'version' => 111,
+			'summary' => "Shortcut links to edit fields and template directly from page edit.",
 			'singular' => true,
 			'autoload' => true,
 			'permission' => 'admin-helper-links',
