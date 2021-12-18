@@ -15,6 +15,7 @@
 	position: absolute;
 	right: 100%;
 	z-index: 100;
+	padding-left: .5em;
 }
 
 .ahl:not(:hover) .ahl__hover-content {
@@ -25,7 +26,6 @@
 	position: absolute;
 	right: 100%;
 	width: 30px;
-	padding-right: .75em;
 	cursor: default;
 }
 
@@ -119,11 +119,11 @@
 	background: inherit;
 }
 
-.AdminThemeDefault .ahl--init .toggle-icon {
+.AdminThemeDefault .InputfieldItemList .ahl--init .toggle-icon {
 	background-color: #fdfdfc;
 }
 
-.AdminThemeDefault .ahl__background-fade {
+.AdminThemeDefault .InputfieldItemList .ahl__background-fade {
 	background: linear-gradient(to left, #f7f6f3, transparent) !important;
 }
 
