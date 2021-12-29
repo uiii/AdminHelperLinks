@@ -8,8 +8,7 @@ class AdminHelperLinks extends WireData implements Module {
 			'version' => 111,
 			'summary' => "Shortcut links to edit fields and template directly from page edit.",
 			'singular' => true,
-			'autoload' => true,
-			'permission' => 'admin-helper-links',
+			'autoload' => 'template=admin',
 			'permissions' => array(
 				'admin-helper-links' => 'Enable Admin Helper Links module'
 			),
@@ -19,7 +18,11 @@ class AdminHelperLinks extends WireData implements Module {
 		);
 	}
 
-	public function init() {
+	public function ready() {
+		if ($this->page->process !== 'ProcessPageEdit' || !$this->user->hasPermission('admin-helper-links')) {
+			return;
+		}
+
 		$this->modules->JqueryUI->use('modal');
 		$this->modules->loadModuleFileAssets($this);
 
