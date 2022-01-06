@@ -56,7 +56,6 @@ function initField() {
 
 	var fieldName = getFieldName($inputfield);
 	var fieldId = ProcessWire.config.AdminHelperLinks.fieldIds[fieldName];
-	console.log("name", fieldName);
 
 	if (fieldId) {
 		var $links = $("<div class='ahl' title=''>");
