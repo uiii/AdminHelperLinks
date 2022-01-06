@@ -57,6 +57,7 @@ function initField($inputfield) {
 			var $editLink = $("<a>");
 			$editLink.attr('href', ProcessWire.config.urls.admin + 'setup/field/edit?id=' + fieldId);
 			$editLink.attr('class', 'ahl__link ahl__link--edit-field pw-modal pw-modal-medium');
+			$editLink.attr('tabindex', '-1');
 			$editLink.attr('data-buttons', '#Inputfield_submit_save_field');
 			$editLink.attr('data-autoclose', "");
 
@@ -66,6 +67,7 @@ function initField($inputfield) {
 			$tooltipWrapper = $("<span>");
  			$tooltipWrapper.attr('title', 'Edit field');
 			$tooltipWrapper.attr('uk-tooltip', "");
+			$tooltipWrapper.attr('tabindex', '-1');
 			$tooltipWrapper.append($editLink);
 
 			$links.append($tooltipWrapper);
@@ -76,6 +78,7 @@ function initField($inputfield) {
 				var $editInContextLink = $("<a>");
 				$editInContextLink.attr('href', ProcessWire.config.urls.admin + 'setup/field/edit?id=' + fieldId + '&fieldgroup_id=' + templateFieldgroupId + '&process_template=1');
 				$editInContextLink.attr('class', 'ahl__link ahl__link--edit-field-in-context pw-modal pw-modal-medium');
+				$editInContextLink.attr('tabindex', '-1');
 				$editInContextLink.attr('data-buttons', '#Inputfield_submit_save_field');
 				$editInContextLink.attr('data-autoclose', "");
 
@@ -85,6 +88,7 @@ function initField($inputfield) {
 				$tooltipWrapper = $("<span>");
 				$tooltipWrapper.attr('title', 'Edit field in template context');
 				$tooltipWrapper.attr('uk-tooltip', "");
+				$tooltipWrapper.attr('tabindex', '-1');
 				$tooltipWrapper.append($editInContextLink);
 
 				$hoverContent.append($tooltipWrapper);
