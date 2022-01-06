@@ -119,11 +119,15 @@
 	background: inherit;
 }
 
-.AdminThemeDefault .InputfieldItemList .ahl--init .toggle-icon {
+.AdminThemeDefault .ahl--init > .InputfieldHeader > .toggle-icon {
+	background-color: white;
+}
+
+.AdminThemeDefault .InputfieldItemList.ahl--init > .InputfieldHeader > .toggle-icon {
 	background-color: #fdfdfc;
 }
 
-.AdminThemeDefault .InputfieldItemList .ahl__background-fade {
+.AdminThemeDefault .InputfieldItemList > .InputfieldHeader .ahl__background-fade {
 	background: linear-gradient(to left, #f7f6f3, transparent) !important;
 }
 
