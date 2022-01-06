@@ -11,10 +11,16 @@ function getPageTemplateName() {
 	return templateName;
 }
 
-function getFieldName($label) {
+function getFieldName($inputfield) {
+	var $label = $inputfield.find('label.InputfieldHeader');
+
+	if ($label.length == 0) {
+		return undefined;
+	}
+
 	var forId = $label.attr('for');
-	if(!forId) forId = $label.parent().attr('id');
-	if(!forId) return;
+	if(!forId) forId = $inputfield.attr('id');
+	if(!forId) return undefined;
 
 	var fieldName = forId
 		.replace(/^Inputfield_|wrap_Inputfield_|wrap_/, '')
@@ -23,20 +29,38 @@ function getFieldName($label) {
 	return fieldName;
 }
 
-function initField($inputfield) {
-	$inputfield.find('.InputfieldHeader:not(.ahl--init) > i.toggle-icon').each(function() {
-		$(this).off('hover');
+function getFieldTemplateName($inputfield) {
+	$repeater = $inputfield.parent().closest('.InputfieldRepeater');
 
-		var $header = $(this).closest('.InputfieldHeader');
-		var $label = $(this).parent('label');
+	if ($repeater.length > 0) {
+		return 'repeater_' + getFieldName($repeater);
+	}
 
-		if($label.length == 0) return;
+	return getPageTemplateName();
+}
 
-		var fieldName = getFieldName($label);
-		var fieldId = ProcessWire.config.AdminHelperLinks.fieldIds[fieldName];
+function initField() {
+	var $inputfield = $(this);
 
-		$links = $("<div class='ahl' title=''>");
-		$(this).append($links);
+	if ($inputfield.hasClass('ahl--init')) {
+		return;
+	}
+
+	$toggleIcon = $inputfield.find('> .InputfieldHeader > i.toggle-icon');
+
+	if (!$toggleIcon) {
+		return;
+	}
+
+	$toggleIcon.off('hover');
+
+	var fieldName = getFieldName($inputfield);
+	var fieldId = ProcessWire.config.AdminHelperLinks.fieldIds[fieldName];
+	console.log("name", fieldName);
+
+	if (fieldId) {
+		var $links = $("<div class='ahl' title=''>");
+		$toggleIcon.append($links);
 
 		$hoverContent = $("<div class='ahl__hover-content'>");
 
@@ -53,50 +77,49 @@ function initField($inputfield) {
 
 		$links.append($hoverContent);
 
-		if(fieldId) {
-			var $editLink = $("<a>");
-			$editLink.attr('href', ProcessWire.config.urls.admin + 'setup/field/edit?id=' + fieldId);
-			$editLink.attr('class', 'ahl__link ahl__link--edit-field pw-modal pw-modal-medium');
-			$editLink.attr('tabindex', '-1');
-			$editLink.attr('data-buttons', '#Inputfield_submit_save_field');
-			$editLink.attr('data-autoclose', "");
+		var $editLink = $("<a>");
+		$editLink.attr('href', ProcessWire.config.urls.admin + 'setup/field/edit?id=' + fieldId);
+		$editLink.attr('class', 'ahl__link ahl__link--edit-field pw-modal pw-modal-medium');
+		$editLink.attr('tabindex', '-1');
+		$editLink.attr('data-buttons', '#Inputfield_submit_save_field');
+		$editLink.attr('data-autoclose', "");
 
-			$editLink.append("<div class='ahl__keep-height'>&nbsp;</div>");
-			$editLink.append("<i class='fa fa-cube'></i>");
+		$editLink.append("<div class='ahl__keep-height'>&nbsp;</div>");
+		$editLink.append("<i class='fa fa-cube'></i>");
+
+		$tooltipWrapper = $("<span>");
+		$tooltipWrapper.attr('title', 'Edit field');
+		$tooltipWrapper.attr('uk-tooltip', "");
+		$tooltipWrapper.attr('tabindex', '-1');
+		$tooltipWrapper.append($editLink);
+
+		$links.append($tooltipWrapper);
+
+		var templateName = getFieldTemplateName($inputfield);
+		var templateFieldgroupId = ProcessWire.config.AdminHelperLinks.templateFieldgroupIds[templateName];
+
+		if (templateFieldgroupId) {
+			var $editInContextLink = $("<a>");
+			$editInContextLink.attr('href', ProcessWire.config.urls.admin + 'setup/field/edit?id=' + fieldId + '&fieldgroup_id=' + templateFieldgroupId + '&process_template=1');
+			$editInContextLink.attr('class', 'ahl__link ahl__link--edit-field-in-context pw-modal pw-modal-medium');
+			$editInContextLink.attr('tabindex', '-1');
+			$editInContextLink.attr('data-buttons', '#Inputfield_submit_save_field');
+			$editInContextLink.attr('data-autoclose', "");
+
+			$editInContextLink.append("<div class='ahl__keep-height'>&nbsp;</div>");
+			$editInContextLink.append("<i class='fa fa-cubes'></i>");
 
 			$tooltipWrapper = $("<span>");
- 			$tooltipWrapper.attr('title', 'Edit field');
+			$tooltipWrapper.attr('title', 'Edit field in template context');
 			$tooltipWrapper.attr('uk-tooltip', "");
 			$tooltipWrapper.attr('tabindex', '-1');
-			$tooltipWrapper.append($editLink);
+			$tooltipWrapper.append($editInContextLink);
 
-			$links.append($tooltipWrapper);
-
-			var templateName = getPageTemplateName();
-			var templateFieldgroupId = ProcessWire.config.AdminHelperLinks.templateFieldgroupIds[templateName];
-			if (templateFieldgroupId) {
-				var $editInContextLink = $("<a>");
-				$editInContextLink.attr('href', ProcessWire.config.urls.admin + 'setup/field/edit?id=' + fieldId + '&fieldgroup_id=' + templateFieldgroupId + '&process_template=1');
-				$editInContextLink.attr('class', 'ahl__link ahl__link--edit-field-in-context pw-modal pw-modal-medium');
-				$editInContextLink.attr('tabindex', '-1');
-				$editInContextLink.attr('data-buttons', '#Inputfield_submit_save_field');
-				$editInContextLink.attr('data-autoclose', "");
-
-				$editInContextLink.append("<div class='ahl__keep-height'>&nbsp;</div>");
-				$editInContextLink.append("<i class='fa fa-cubes'></i>");
-
-				$tooltipWrapper = $("<span>");
-				$tooltipWrapper.attr('title', 'Edit field in template context');
-				$tooltipWrapper.attr('uk-tooltip', "");
-				$tooltipWrapper.attr('tabindex', '-1');
-				$tooltipWrapper.append($editInContextLink);
-
-				$hoverContent.append($tooltipWrapper);
-			}
-
-			$header.addClass('ahl--init');
+			$hoverContent.append($tooltipWrapper);
 		}
-	});
+	}
+
+	$inputfield.addClass('ahl--init');
 }
 
 function initPageTemplate() {
@@ -127,9 +150,9 @@ function initPageTemplate() {
 
 jQuery(document).ready(function($) {
 	initPageTemplate();
-	initField($('.Inputfield'));
+	$('.Inputfield').each(initField);
 
 	$(document).on('reloaded', '.Inputfield', function() {
-		initField($(this));
+		$(this).each(initField);
 	});
 });
