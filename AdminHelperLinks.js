@@ -131,7 +131,7 @@ function initPageTemplate() {
 		$wrapper.append('<span class="ahl__template-name" title="Template">' + templateName + '</span>');
 
 		$link = $('<a>');
-		$link.attr('href', ProcessWire.config.urls.admin + '/setup/template/edit?id=' + templateId);
+		$link.attr('href', ProcessWire.config.urls.admin + 'setup/template/edit?id=' + templateId);
 		$link.attr('class', 'ahl__link ahl__link--template pw-modal pw-modal-medium');
 		$link.attr('data-buttons', '#Inputfield_submit');
 		$link.attr('data-autoclose', '');
