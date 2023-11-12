@@ -46,9 +46,22 @@ function initField() {
 		return;
 	}
 
-	$toggleIcon = $inputfield.find('> .InputfieldHeader > i.toggle-icon');
+	//prepare missing element for injection
+	$el = $('<i class="toggle-icon fa" style="float:right"></i>');
 
-	if (!$toggleIcon) {
+	//for inputfields display settings to "open not closeable" add $el
+	if ($inputfield.hasClass('collapsed9')) {
+		$inputfield.find('> .InputfieldHeader').append($el);
+	}
+	$toggleIcon = $inputfield.find('> .InputfieldHeader:not(.InputfieldHeaderHidden) > i.toggle-icon');
+
+	//next try: for fields with hidden label e.g. checkbox
+	if ($toggleIcon.length == 0 && $inputfield.find('> .InputfieldHeader').hasClass('InputfieldHeaderHidden')) {
+		$inputfield.find('> .InputfieldContent').prepend($el);
+		$toggleIcon = $inputfield.find('> .InputfieldContent > i.toggle-icon');
+	}
+
+	if ($toggleIcon.length == 0) {
 		return;
 	}
 
